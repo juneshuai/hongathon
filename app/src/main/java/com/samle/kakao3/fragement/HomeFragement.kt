@@ -8,10 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.jeongdaeri.mycustomdialog_tutorial.MyCustomDialog
 import com.samle.kakao3.R
+import kotlinx.android.synthetic.main.fragement_home.*
+import kotlinx.android.synthetic.main.fragement_home.view.*
 
 
 class HomeFragement : Fragment() {
+
 
 
 
@@ -44,8 +48,16 @@ class HomeFragement : Fragment() {
         Log.d(TAG,"HomeFragement - onCreateView() called")
 
         val view = inflater.inflate(R.layout.fragement_home, container, false)
+        view.dialog_button.setOnClickListener {
+            MyCustomDialog(view.context).show()
+
+        }
+
         Glide.with(this).load(R.raw.aa).into(view.homeImg)
+
         return view
     }
+
+
 
 }
