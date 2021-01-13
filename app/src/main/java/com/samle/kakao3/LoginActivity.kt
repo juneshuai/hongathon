@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
                         Log.i(TAG, "loginWithKakaoTalk $token $error")
                         //updateLoginInfo()
                         if(token != null) {
-                            val intent = Intent(applicationContext, MainActivity::class.java)
+                            val intent = Intent(applicationContext, InfoActivity::class.java)
                             startActivity(intent)
                         }
 
@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.i(TAG, "loginWithKakaoAccount $token $error")
                     //updateLoginInfo()
                     if(token != null) {
-                        val intent = Intent(applicationContext, MainActivity::class.java)
+                        val intent = Intent(applicationContext, InfoActivity::class.java)
                         startActivity(intent)
                     }
                 }

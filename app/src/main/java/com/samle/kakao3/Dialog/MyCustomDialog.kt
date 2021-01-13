@@ -1,4 +1,4 @@
-package com.jeongdaeri.mycustomdialog_tutorial
+package com.samle.kakao3
 
 import android.app.Dialog
 import android.content.Context
