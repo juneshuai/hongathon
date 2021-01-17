@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "64273443568",
+    "project_id": "memory-f3610",
+    "storage_bucket": "memory-f3610.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64273443568:android:5a3cb922b208894f88b035",
+        "android_client_info": {
+          "package_name": "com.samle.kakao3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64273443568-mf9p374n9d5ad9ko6elgd695c24726ef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAKwboojEE_3aJvzUy68-Ia4799OA_HgU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64273443568-mf9p374n9d5ad9ko6elgd695c24726ef.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
