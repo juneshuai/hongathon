@@ -39,6 +39,8 @@ class LoginActivity : AppCompatActivity() {
                     //updateLoginInfo()
                     if(token != null) {
                         val intent = Intent(applicationContext, InfoActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
                     }
                 }

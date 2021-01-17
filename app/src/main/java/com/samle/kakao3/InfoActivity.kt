@@ -1,12 +1,16 @@
 package com.samle.kakao3
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.AlphaAnimation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.activity_info.*
@@ -16,6 +20,7 @@ class InfoActivity : AppCompatActivity() {
 
     companion object {
         const val TAG: String = "로그"
+
     }
 
     private var pageItemList = ArrayList<PageItem>()
@@ -37,7 +42,18 @@ class InfoActivity : AppCompatActivity() {
             my_intro_view_pager.currentItem = my_intro_view_pager.currentItem + 1
             if(my_intro_view_pager.currentItem == 2){
                 Log.d(TAG, "InfoActivity : onCreate() called");
+                val anim = AnimationUtils.loadAnimation(applicationContext,R.anim.animation)
+                start_btn.startAnimation(anim)
                 start_btn.setVisibility(View.VISIBLE)
+                start_btn.setOnClickListener {
+                    intent = Intent(applicationContext,MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+
+            }else{
+                start_btn.setVisibility(View.INVISIBLE)
             }
         }
 
@@ -46,6 +62,7 @@ class InfoActivity : AppCompatActivity() {
         pageItemList.add(PageItem(R.color.colorOrange, R.drawable.ic_pager_item_3, "과거의 나를 열람해 보세요"))
 
         myIntroPagerRecyclerAdapter = MyIntroPagerRecyclerAdapter(pageItemList)
+
 
         if (Build.VERSION.SDK_INT < 16) {
             window.setFlags(

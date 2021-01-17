@@ -29,6 +29,7 @@ class MyCustomDialog(context: Context)
         save_btn.setOnClickListener {
             Toast.makeText(context,"저장",Toast.LENGTH_SHORT).show()
             dismiss()
+
         }
         cancel_btn.setOnClickListener {
             Toast.makeText(context,"취소",Toast.LENGTH_SHORT).show()

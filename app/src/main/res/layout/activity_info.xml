@@ -7,21 +7,7 @@
     xmlns:attrs="http://schemas.android.com/apk/res-auto"
     tools:context=".InfoActivity"
     android:orientation="vertical">
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="130dp">
-        <Button
-            android:id="@+id/start_btn"
-            android:text="시작"
-            android:textSize="32sp"
-            android:layout_width="160dp"
-            android:layout_height="60dp"
-            android:visibility="visible"/>
-    </FrameLayout>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/my_intro_view_pager"
         android:layout_width="match_parent"
@@ -61,6 +47,22 @@
         android:layout_alignParentTop="true"
         android:textStyle="bold"
         />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="130dp">
+        <Button
+            android:id="@+id/start_btn"
+            android:text="시작"
+            android:textSize="32sp"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:visibility="invisible"
+            />
+    </FrameLayout>
 
 
 </RelativeLayout>

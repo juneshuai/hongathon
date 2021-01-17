@@ -17,6 +17,8 @@ class StartActivity : AppCompatActivity() {
         timer.schedule(object : TimerTask(){
             override fun run(){
                 val intent = Intent(applicationContext,LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
         },4000)

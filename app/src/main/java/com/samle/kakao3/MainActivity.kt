@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.bottomnavi.HomeFragement
 import com.example.bottomnavi.MiddleFragement
 import com.example.bottomnavi.SettingFragement
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -16,6 +18,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     private lateinit var homeFragement: HomeFragement
     private lateinit var middleFragement: MiddleFragement
     private lateinit var settingFragement: SettingFragement
+    var mBackWait:Long = 0
 
 
     companion object{
@@ -38,10 +41,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     override fun onBackPressed() {
-
+        if(System.currentTimeMillis()-mBackWait>=2000){
+            mBackWait = System.currentTimeMillis()
+            Snackbar.make(main_activity,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.",Snackbar.LENGTH_SHORT).show()
+        }else{
+            finish()
+        }
     }
-
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         Log.d(TAG,"MainActivity - onNavigationItemReselected() called")
