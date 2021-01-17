@@ -51,9 +51,10 @@ class HomeFragement : Fragment() {
         view.dialog_button.setOnClickListener {
             MyCustomDialog(view.context).show()
 
+
         }
 
-        Glide.with(this).load(R.raw.aa).into(view.homeImg)
+        Glide.with(this).load(R.drawable.a).into(view.homeImg)
 
         return view
     }

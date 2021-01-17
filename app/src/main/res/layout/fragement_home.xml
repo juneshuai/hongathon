@@ -12,7 +12,8 @@
         android:layout_gravity="center"
         android:layout_width="300dp"
         android:layout_height="30dp"
-        android:progress="25"
+        android:max="100"
+        android:progress="0"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         />
 
