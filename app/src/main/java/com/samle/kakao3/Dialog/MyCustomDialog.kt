@@ -32,22 +32,23 @@ class MyCustomDialog(context: Context)
         setContentView(R.layout.custom_dialog)
 
         Log.d(TAG, "MyCustomDialog - onCreate() called")
-
+        var check=true
         db.collection("questions")
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     for (document in task.result!!) {
+                        db.collection("answer").document(LoginActivity.currentUserEmail).get().addOnCompleteListener{
+                            if(it.isSuccessful){
+                                var tmpContent=document.get("contents").toString()
+                                if(check && it.result?.get(tmpContent)?.toString()==null){
+                                    document_Id = document.id
+                                    dialog_text.text = document.get("contents").toString()
+                                    check=false
+                                }
+                            }
 
-                        if(document.get("isUsed")== true) continue
-                        Log.d(TAG, "document.get(\"contents\").toString()${document.get("contents").toString()}");
-                        Log.d(TAG,"document.id is String : ${document.id is String}")
-                            document_Id = document.id
-                            dialog_text.text = document.get("contents").toString()
-                            if(document.get("isUsed")== false){
-                                break
                         }
-
 
                     }
 
@@ -61,32 +62,37 @@ class MyCustomDialog(context: Context)
 
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         save_btn.setOnClickListener {
-            Toast.makeText(context,"저장",Toast.LENGTH_SHORT).show()
-            Log.d(TAG, "what is ${document_Id}");
+
            // var map = mutableMapOf<ArrayList<String>, Any>()
 //            map["isUsed"] = true
 //            map["answer"] = edit_text.text.toString()
-            lateinit var users: Array<Map<String,String>>
 
+            val data= hashMapOf(
+                    "answer" to edit_text.text.toString(),
+                    "content" to dialog_text.text.toString()
+            )
+            Log.d("ㅇㅇㅇ체크",data.toString())
 
-
-            db.collection("questions").document(document_Id).get().addOnCompleteListener {
-                if (it.isSuccessful) {
-                    users= it.result?.get("users") as Array<Map<String, String>>
+                db.collection("answer").document(LoginActivity.currentUserEmail).get().addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        if (it.result != null) {
+                            db.collection("answer").document(LoginActivity.currentUserEmail)
+                                .update(dialog_text.text.toString(),data)
+                                .addOnCompleteListener {
+                                    Log.d("확인해야함", "ghkrdls ")
+                                }
+                        } else {
+                            db.collection("answer").document(LoginActivity.currentUserEmail)
+                                .set(data)
+                                .addOnCompleteListener {
+                                    Log.d("확인해야함", "ghkrdls ")
+                                }
+                        }
                     }
-            }
-            var user= mutableMapOf<String,String>()
-            user["answer"]=edit_text.text.toString()
-            user["email"]=LoginActivity.currentUserEmail
-
-            users[users.size]=user
-
-            db.collection("questions").document(document_Id).update("users",users)
-                    .addOnCompleteListener {
-
-                    }
+                }
 
 
+            Toast.makeText(context,"저장",Toast.LENGTH_SHORT).show()
             dismiss()
 
         }

@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                                             "email" to user.kakaoAccount?.email,
                                             "name" to user.kakaoAccount?.profile?.nickname
                                     )
-                                    db.collection("user").document("2")
+                                    db.collection("user").document(user.kakaoAccount?.email.toString())
                                             .set(userData)
                                             .addOnSuccessListener {
                                                 currentUserEmail=user.kakaoAccount?.email.toString()
@@ -89,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
                                 db.collection("user").document(user.kakaoAccount?.email.toString())
                                         .set(userData)
                                         .addOnSuccessListener {val intent = Intent(applicationContext, InfoActivity::class.java)
-
+                                            currentUserEmail=user.kakaoAccount?.email.toString()
                                             startActivity(intent) }
                                         .addOnFailureListener { e -> Log.w("db값 안들어감", "Error writing document", e) }
                             }
