@@ -12,7 +12,6 @@ class RecyclerAdapter(var memo : ArrayList<Memo>) : RecyclerView.Adapter<Recycle
 
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.reclyer_data, parent,false)
         return MyViewHolder(view)
