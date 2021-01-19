@@ -39,12 +39,15 @@ class MyCustomDialog(context: Context)
                 if (task.isSuccessful) {
                     for (document in task.result!!) {
                         if(document.get("isUsed")== true) continue
-                        Log.d(TAG, "document.get(\"contents\").toString()${document.get("contents").toString()}");
-                        Log.d(TAG,"document.id is String : ${document.id is String}")
+                        if(document["user"]==LoginActivity.currentUserEmail){
+                            Log.d(TAG, "document.get(\"contents\").toString()${document.get("contents").toString()}");
+                            Log.d(TAG,"document.id is String : ${document.id is String}")
                             document_Id = document.id
                             dialog_text.text = document.get("contents").toString()
                             if(document.get("isUsed")== false){
                                 break
+                            }
+
                         }
 
 
@@ -65,6 +68,7 @@ class MyCustomDialog(context: Context)
             var map = mutableMapOf<String, Any>()
             map["isUsed"] = true
             map["answer"] = edit_text.text.toString()
+            map["user"]=LoginActivity.currentUserEmail
             db.collection("questions").document(document_Id)
                     .update(map as Map<String, Any>)
                     .addOnCompleteListener {
