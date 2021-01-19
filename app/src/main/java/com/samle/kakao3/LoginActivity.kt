@@ -19,6 +19,10 @@ private const val TAG = "로그"
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     var db = FirebaseFirestore.getInstance()
+
+    companion object{
+        var currentUserEmail=""
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -40,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
                                             "\n이메일: ${user.kakaoAccount?.email}" +
                                             "\n닉네임: ${user.kakaoAccount?.profile?.nickname}"
                                     )
+                                    currentUserEmail=user.kakaoAccount?.email.toString()
                                     val userData= hashMapOf(
                                             "email" to user.kakaoAccount?.email,
                                             "name" to user.kakaoAccount?.profile?.nickname
