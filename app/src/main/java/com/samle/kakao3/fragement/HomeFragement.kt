@@ -52,6 +52,7 @@ class HomeFragement : Fragment() {
             MyCustomDialog(view.context).show()
 
 
+
         }
 
         Glide.with(this).load(R.drawable.a).into(view.homeImg)

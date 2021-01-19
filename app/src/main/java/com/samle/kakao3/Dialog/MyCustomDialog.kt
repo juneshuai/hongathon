@@ -6,11 +6,13 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
-import com.samle.kakao3.R
+import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.android.synthetic.main.custom_dialog.*
-import kotlinx.android.synthetic.main.fragement_home.*
+import kotlin.math.log
+
 
 class MyCustomDialog(context: Context)
                     : Dialog(context)
@@ -18,16 +20,61 @@ class MyCustomDialog(context: Context)
 
     val TAG: String = "로그"
 
+    var db = FirebaseFirestore.getInstance()
+    var question_list : MutableMap<Int, String> = mutableMapOf()
+    companion object{
+        private lateinit var document_Id : String
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.custom_dialog)
 
         Log.d(TAG, "MyCustomDialog - onCreate() called")
-        // 배경 투명
+
+        db.collection("questions")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        if(document.get("isUsed")== true) continue
+                        Log.d(TAG, "document.get(\"contents\").toString()${document.get("contents").toString()}");
+                        Log.d(TAG,"document.id is String : ${document.id is String}")
+                            document_Id = document.id
+                            dialog_text.text = document.get("contents").toString()
+                            if(document.get("isUsed")== false){
+                                break
+                        }
+
+
+                    }
+
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.exception)
+                }
+            }
+
+
+
+
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         save_btn.setOnClickListener {
             Toast.makeText(context,"저장",Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "what is ${document_Id}");
+            var map = mutableMapOf<String, Any>()
+            map["isUsed"] = true
+            map["answer"] = edit_text.text.toString()
+            db.collection("questions").document(document_Id)
+                    .update(map as Map<String, Any>)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+
+
+                        }
+
+                    }
+
+
             dismiss()
 
         }
@@ -40,6 +87,10 @@ class MyCustomDialog(context: Context)
 
     }
 
-
-
 }
+
+
+
+
+
+
