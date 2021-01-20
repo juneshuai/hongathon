@@ -83,7 +83,8 @@ class LoginActivity : AppCompatActivity() {
                                 )
                                 val userData= hashMapOf(
                                         "email" to user.kakaoAccount?.email,
-                                        "name" to user.kakaoAccount?.profile?.nickname
+                                        "name" to user.kakaoAccount?.profile?.nickname,
+                                        "state" to 0
                                 )
 
                                 db.collection("user").document(user.kakaoAccount?.email.toString())
