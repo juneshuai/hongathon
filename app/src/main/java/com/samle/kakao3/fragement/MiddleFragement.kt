@@ -39,11 +39,11 @@ class MiddleFragement : Fragment() {
 
 
     val RecoList = arrayListOf(
-            Memo(R.mipmap.ic_launcher, "안녕"),
-            Memo(R.mipmap.ic_launcher, "안녕"),
-            Memo(R.mipmap.ic_launcher, "안녕"),
-            Memo(R.mipmap.ic_launcher, "안녕"),
-            Memo(R.mipmap.ic_launcher, "안녕")
+            Memo(R.drawable.list, "안녕"),
+            Memo(R.drawable.list, "안녕"),
+            Memo(R.drawable.list, "안녕"),
+            Memo(R.drawable.list, "안녕"),
+            Memo(R.drawable.list, "안녕")
 
     )
     override fun onCreateView(

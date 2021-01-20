@@ -11,12 +11,14 @@ class MyIntroPagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private val itemContent = itemView.pager_item_text
     private val itemBg = itemView.pager_item_bg
 
+
     fun bindWithView(pageItem: PageItem){
         itemImage.setImageResource(pageItem.imageSrc)
         itemContent.text = pageItem.content
 
         if(pageItem.bgColor != R.color.white){
             itemContent.setTextColor(Color.WHITE)
+
         }
 
         itemBg.setBackgroundResource(pageItem.bgColor)
