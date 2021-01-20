@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:text="그 때 그 질문"
             android:textSize="12sp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"/>
 
         <TextView

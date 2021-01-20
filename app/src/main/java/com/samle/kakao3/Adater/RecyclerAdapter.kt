@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.samle.kakao3.R
 
-class RecyclerAdapter(var eachData : ArrayList<eachData>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
+class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
 
 
+    var modelList = mutableListOf<eachData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.reclyer_data, parent,false)
@@ -19,13 +20,13 @@ class RecyclerAdapter(var eachData : ArrayList<eachData>) : RecyclerView.Adapter
     }
 
     override fun getItemCount(): Int {
-        return eachData.size
+        return modelList.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.img.setImageResource(eachData.get(position).user_img)
-        holder.user_question.text = eachData.get(position).user_question
-        holder.user_answer.text = eachData.get(position).user_answer
+        holder.img.setImageResource(modelList.get(position).user_img)
+        holder.user_question.text = modelList.get(position).user_question
+        holder.user_answer.text = modelList.get(position).user_answer
     }
 
     // 답변 추가

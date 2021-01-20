@@ -2,6 +2,7 @@ package com.example.bottomnavi
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,19 +12,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.btnnavirecycler.Adater.RecyclerAdapter
 import com.example.btnnavirecycler.Adater.eachData
+import com.google.api.LogDescriptor
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samle.kakao3.LoginActivity
 import com.samle.kakao3.R
+import kotlinx.android.synthetic.main.custom_dialog.*
 
 
 class MiddleFragement : Fragment() {
 
     lateinit var recyclerView: RecyclerView
+    var memory = mutableListOf<eachData>()
 
     var db = FirebaseFirestore.getInstance()
     companion object{
         const val TAG : String = "로그"
-
+        var check : Int = 0
+        val adapter = RecyclerAdapter()
         fun newInstance() : MiddleFragement{
             return MiddleFragement()
         }
@@ -80,25 +85,48 @@ class MiddleFragement : Fragment() {
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }*/
-        db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
-            .get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    for (document in task.result!!) {
-                        Log.d("성공성공", document.id + " => " + document.data)
+        if(check == 0) {
+            db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result!!) {
+                            Log.d("성공성공", document.id + " => " + document.data)
+                            var img = R.drawable.profile
+                            var answer = document.data.get("answer").toString()
+                            var question = document.data.get("contents").toString()
+                            Log.d(TAG, "확인 : ${document.data.get("index").toString().toInt()}");
+                            Log.d(TAG, "메모리 확인 : ${memory.size}");
+                            Log.d(TAG, "메모리 확인 : ${document.data.get("index").toString().toInt() == memory.size-1}");
+                            if(document.data.get("index").toString().toInt() == memory.size-1 || check == 0){
+                                memory.clear()
+                                memory.add(eachData(img, question, answer))
+                                Log.d(TAG, "메모리 사이즈 : ${memory.size}");
+                                check ++
+                                Log.d(TAG, "확인 : ${memory}");
+                            }
+
+
+
+                        }
+                    } else {
+                        Log.w("실패실패", "Error getting documents.", task.exception)
                     }
-                } else {
-                    Log.w("실패실패", "Error getting documents.", task.exception)
                 }
+        }
+
+
+        Handler().postDelayed(
+            {
+                adapter.modelList.addAll(memory)
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(context)
+
             }
+        ,
+        2000)
 
 
-
-
-
-
-
-        recyclerView.adapter = RecyclerAdapter(RecoList)
 
 
         return view
