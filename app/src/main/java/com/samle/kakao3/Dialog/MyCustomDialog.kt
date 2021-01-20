@@ -67,23 +67,29 @@ class MyCustomDialog(context: Context)
 //            map["isUsed"] = true
 //            map["answer"] = edit_text.text.toString()
 
-            val data= hashMapOf(
+            val updateData= hashMapOf(
                     "answer" to edit_text.text.toString(),
                     "content" to dialog_text.text.toString()
             )
-            Log.d("ㅇㅇㅇ체크",data.toString())
+
+            val setData= hashMapOf(
+                dialog_text.text.toString() to hashMapOf<String,String>(
+                    "answer" to edit_text.text.toString(),
+                    "content" to dialog_text.text.toString()
+                )
+            )
 
                 db.collection("answer").document(LoginActivity.currentUserEmail).get().addOnCompleteListener {
                     if (it.isSuccessful) {
                         if (it.result != null) {
                             db.collection("answer").document(LoginActivity.currentUserEmail)
-                                .update(dialog_text.text.toString(),data)
+                                .update(dialog_text.text.toString(),updateData)
                                 .addOnCompleteListener {
                                     Log.d("확인해야함", "ghkrdls ")
                                 }
                         } else {
                             db.collection("answer").document(LoginActivity.currentUserEmail)
-                                .set(data)
+                                .set(setData)
                                 .addOnCompleteListener {
                                     Log.d("확인해야함", "ghkrdls ")
                                 }
