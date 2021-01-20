@@ -32,6 +32,7 @@ class MiddleFragement : Fragment() {
         fun newInstance() : MiddleFragement{
             return MiddleFragement()
         }
+        var data =ArrayList<String>()
     }
     //메모리에 올라갈때
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +86,7 @@ class MiddleFragement : Fragment() {
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }*/
-        if(check == 0) {
+
             db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
                 .get()
                 .addOnCompleteListener { task ->
@@ -98,12 +99,10 @@ class MiddleFragement : Fragment() {
                             Log.d(TAG, "확인 : ${document.data.get("index").toString().toInt()}");
                             Log.d(TAG, "메모리 확인 : ${memory.size}");
                             Log.d(TAG, "메모리 확인 : ${document.data.get("index").toString().toInt() == memory.size-1}");
-                            if(document.data.get("index").toString().toInt() == memory.size-1 || check == 0){
+                            if(!data.contains(question)){
                                 memory.clear()
                                 memory.add(eachData(img, question, answer))
-                                Log.d(TAG, "메모리 사이즈 : ${memory.size}");
-                                check ++
-                                Log.d(TAG, "확인 : ${memory}");
+                                data.add(question)
                             }
 
 
@@ -113,7 +112,8 @@ class MiddleFragement : Fragment() {
                         Log.w("실패실패", "Error getting documents.", task.exception)
                     }
                 }
-        }
+
+
 
 
         Handler().postDelayed(
