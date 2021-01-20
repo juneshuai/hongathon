@@ -87,6 +87,7 @@ class MiddleFragement : Fragment() {
                 Log.d(TAG, "get failed with ", exception)
             }*/
 
+
             db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
                 .get()
                 .addOnCompleteListener { task ->
@@ -100,7 +101,6 @@ class MiddleFragement : Fragment() {
                             Log.d(TAG, "메모리 확인 : ${memory.size}");
                             Log.d(TAG, "메모리 확인 : ${document.data.get("index").toString().toInt() == memory.size-1}");
                             if(!data.contains(question)){
-                                memory.clear()
                                 memory.add(eachData(img, question, answer))
                                 data.add(question)
                             }
