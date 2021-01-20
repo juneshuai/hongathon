@@ -127,7 +127,9 @@ class MiddleFragement : Fragment() {
             2000)
 
 
+        recyclerView.setOnClickListener{
 
+        }
 
         return view
     }
