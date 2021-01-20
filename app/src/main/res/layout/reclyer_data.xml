@@ -22,8 +22,14 @@
             android:text="안녕하세요"
             android:layout_marginLeft="20dp"/>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/answer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
 
+    </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>
