@@ -1,17 +1,13 @@
 package com.samle.kakao3
 
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.AlphaAnimation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.activity_info.*
 
@@ -59,7 +55,7 @@ class InfoActivity : AppCompatActivity() {
 
         pageItemList.add(PageItem(R.color.colorOrange, R.drawable.ic_pager_item_1, "하루질문에 답해주세요"))
         pageItemList.add(PageItem(R.color.white, R.drawable.ic_pager_item_2, "나만의 캐릭터를 키워보세요"))
-        pageItemList.add(PageItem(R.color.colorOrange, R.drawable.ic_pager_item_3, "과거의 나를 열람해 보세요"))
+        pageItemList.add(PageItem(R.color.colorOrange, R.drawable.ic_pager_item_3,  "과거의 나를 열람해 보세요"))
 
         myIntroPagerRecyclerAdapter = MyIntroPagerRecyclerAdapter(pageItemList)
 

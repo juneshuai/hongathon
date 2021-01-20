@@ -7,7 +7,7 @@
     <item
         android:id="@+id/menu_ranking"
         android:title="기록"
-        android:icon="@drawable/ic_baseline_group_24"/>
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"/>
     <item
         android:id="@+id/menu_profile"
         android:title="환경설정"
