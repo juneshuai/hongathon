@@ -88,7 +88,9 @@ class LoginActivity : AppCompatActivity() {
 
                                 db.collection("user").document(user.kakaoAccount?.email.toString())
                                         .set(userData)
-                                        .addOnSuccessListener {val intent = Intent(applicationContext, InfoActivity::class.java)
+                                        .addOnSuccessListener {
+                                            currentUserEmail = user.kakaoAccount!!.email.toString()
+                                            val intent = Intent(applicationContext, InfoActivity::class.java)
                                             currentUserEmail=user.kakaoAccount?.email.toString()
                                             startActivity(intent) }
                                         .addOnFailureListener { e -> Log.w("db값 안들어감", "Error writing document", e) }

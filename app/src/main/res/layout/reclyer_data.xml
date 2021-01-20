@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="20dp"
     android:orientation="horizontal"
+    android:id="@+id/card_view"
     android:layout_margin="20dp">
     <LinearLayout
         android:layout_width="wrap_content"
@@ -15,12 +16,30 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@mipmap/ic_launcher"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         <TextView
             android:id="@+id/data_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="안녕하세요"
+            android:text="그 때 그 질문"
+            android:textSize="12sp"
             android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/answer_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="답변"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"/>
+
+    </LinearLayout>
+
+
 
     </LinearLayout>
 

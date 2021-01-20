@@ -9,15 +9,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.btnnavirecycler.Adater.Memo
 import com.example.btnnavirecycler.Adater.RecyclerAdapter
+import com.example.btnnavirecycler.Adater.eachData
+import com.google.firebase.firestore.FirebaseFirestore
+import com.samle.kakao3.LoginActivity
 import com.samle.kakao3.R
+
 
 class MiddleFragement : Fragment() {
 
     lateinit var recyclerView: RecyclerView
-    var modelList = ArrayList<Memo>()
 
+    var db = FirebaseFirestore.getInstance()
     companion object{
         const val TAG : String = "로그"
 
@@ -39,11 +42,8 @@ class MiddleFragement : Fragment() {
 
 
     val RecoList = arrayListOf(
-            Memo(R.mipmap.ic_launcher, "안녕"),
-            Memo(R.mipmap.ic_launcher, "안녕"),
-            Memo(R.mipmap.ic_launcher, "안녕"),
-            Memo(R.mipmap.ic_launcher, "안녕"),
-            Memo(R.mipmap.ic_launcher, "안녕")
+            eachData(R.mipmap.ic_launcher, "안녕","반갑다")
+
 
     )
     override fun onCreateView(
@@ -57,6 +57,47 @@ class MiddleFragement : Fragment() {
         recyclerView = view.findViewById(R.id.recylerView)
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
+        db.collection("answer").document(LoginActivity.currentUserEmail).get().addOnCompleteListener {
+            if(it.isSuccessful){
+                Log.d("에러에ㅓㄹ어러","addOnCompleteListener${it!!.result}")
+            }
+        }
+
+
+        //파이어베이스 추가
+        /*db.collection("answer").document(LoginActivity.currentUserEmail).get().addOnSuccessListener {
+            if (it != null) {
+                Log.d(TAG, "DocumentSnapshot data: ${it.data!!.toMutableMap()}")
+                Log.d(TAG, "tqtqtqtq${it.data!!.toMutableMap().get("가장 좋아하는 액세서리는?") is MutableList<String, String>}");
+
+
+
+
+            } else {
+                Log.d(TAG, "No such document")
+            }
+        }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
+            }*/
+        db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        Log.d("성공성공", document.id + " => " + document.data)
+                    }
+                } else {
+                    Log.w("실패실패", "Error getting documents.", task.exception)
+                }
+            }
+
+
+
+
+
+
+
         recyclerView.adapter = RecyclerAdapter(RecoList)
 
 

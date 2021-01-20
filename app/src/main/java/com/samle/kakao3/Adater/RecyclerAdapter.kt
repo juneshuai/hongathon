@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.samle.kakao3.R
 
-class RecyclerAdapter(var memo : ArrayList<Memo>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
+class RecyclerAdapter(var eachData : ArrayList<eachData>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
 
 
 
@@ -19,19 +19,21 @@ class RecyclerAdapter(var memo : ArrayList<Memo>) : RecyclerView.Adapter<Recycle
     }
 
     override fun getItemCount(): Int {
-        return memo.size
+        return eachData.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.img.setImageResource(memo.get(position).user_img)
-        holder.user_text.text = memo.get(position).user_text
+        holder.img.setImageResource(eachData.get(position).user_img)
+        holder.user_question.text = eachData.get(position).user_question
+        holder.user_answer.text = eachData.get(position).user_answer
     }
 
-
+    // 답변 추가
     class MyViewHolder(itemList:View) : RecyclerView.ViewHolder(itemList) {
 
-        val img = itemList.findViewById<ImageView>(R.id.data_img)
-        val user_text = itemList.findViewById<TextView>(R.id.data_text)
+        var img = itemList.findViewById<ImageView>(R.id.data_img)
+        var user_question = itemList.findViewById<TextView>(R.id.data_text)
+        var user_answer = itemList.findViewById<TextView>(R.id.answer_text) // 추가
 
     }
 
@@ -39,5 +41,5 @@ class RecyclerAdapter(var memo : ArrayList<Memo>) : RecyclerView.Adapter<Recycle
 
 
 
-data class Memo(var user_img: Int, var user_text: String) {
+data class eachData(var user_img: Int, var user_question: String, var user_answer:String) {
 }
