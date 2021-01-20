@@ -81,19 +81,20 @@ class MyCustomDialog(context: Context)
 
                 db.collection("answer").document(LoginActivity.currentUserEmail).get().addOnCompleteListener {
                     if (it.isSuccessful) {
-                        if (it.result != null) {
+                        if (it.result?.exists()!!) {
                             db.collection("answer").document(LoginActivity.currentUserEmail)
                                 .update(dialog_text.text.toString(),updateData)
                                 .addOnCompleteListener {
-                                    Log.d("확인해야함", "ghkrdls ")
+                                    Log.d("확인해야함", "update로 들어감 ")
                                 }
                         } else {
                             db.collection("answer").document(LoginActivity.currentUserEmail)
                                 .set(setData)
                                 .addOnCompleteListener {
-                                    Log.d("확인해야함", "ghkrdls ")
+                                    Log.d("확인해야함", "set으로 들어감 ")
                                 }
                         }
+                       
                     }
                 }
 
