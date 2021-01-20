@@ -1,6 +1,7 @@
 package com.example.bottomnavi
 
 import android.content.Context
+import android.media.midi.MidiDevice
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,12 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.btnnavirecycler.Adater.Memo
 import com.example.btnnavirecycler.Adater.RecyclerAdapter
+import com.google.firebase.firestore.FirebaseFirestore
+import com.samle.kakao3.LoginActivity
+import com.samle.kakao3.MyCustomDialog
 import com.samle.kakao3.R
 
 class MiddleFragement : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     var modelList = ArrayList<Memo>()
+    var db = FirebaseFirestore.getInstance()
 
     companion object{
         const val TAG : String = "로그"
@@ -59,8 +64,28 @@ class MiddleFragement : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = RecyclerAdapter(RecoList)
 
-
+        loadData()
         return view
     }
 
+    fun loadData() {
+        db.collection("answer").document(LoginActivity.currentUserEmail)
+            .get().addOnCompleteListener {task->
+                if (task.isSuccessful){
+                    db.collection("questions").get().addOnSuccessListener {
+                        for(document in it.documents){
+                            if(task.result?.get(document.get("contents").toString()) !=null ){
+                                Log.d("값 존재",task.result?.get(document.get("contents").toString()).toString()!!)
+                                var map:Map<String,String>
+                                map= task.result?.get(document.get("contents").toString()) as Map<String, String>
+                                Log.d("answer 값 ",map["answer"].toString())
+                                Log.d("질문 값 나오기 ",map["content"].toString())
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
 }
+

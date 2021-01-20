@@ -24,7 +24,6 @@ class MyCustomDialog(context: Context)
     var question_list : MutableMap<Int, String> = mutableMapOf()
     companion object{
         private lateinit var document_Id : String
-
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
