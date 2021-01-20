@@ -83,12 +83,15 @@ class LoginActivity : AppCompatActivity() {
                                 )
                                 val userData= hashMapOf(
                                         "email" to user.kakaoAccount?.email,
-                                        "name" to user.kakaoAccount?.profile?.nickname
+                                        "name" to user.kakaoAccount?.profile?.nickname,
+                                        "state" to 0
                                 )
 
                                 db.collection("user").document(user.kakaoAccount?.email.toString())
                                         .set(userData)
-                                        .addOnSuccessListener {val intent = Intent(applicationContext, InfoActivity::class.java)
+                                        .addOnSuccessListener {
+                                            currentUserEmail = user.kakaoAccount!!.email.toString()
+                                            val intent = Intent(applicationContext, InfoActivity::class.java)
                                             currentUserEmail=user.kakaoAccount?.email.toString()
                                             startActivity(intent) }
                                         .addOnFailureListener { e -> Log.w("db값 안들어감", "Error writing document", e) }
