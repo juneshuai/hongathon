@@ -87,6 +87,7 @@ class MiddleFragement : Fragment() {
                 Log.d(TAG, "get failed with ", exception)
             }*/
 
+        // 주석 테스트 
         db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
             .get()
             .addOnCompleteListener { task ->
