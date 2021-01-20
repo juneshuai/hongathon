@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.samle.kakao3.LoginActivity
 import com.samle.kakao3.R
 import kotlinx.android.synthetic.main.custom_dialog.*
-
+//알겠습니다.
 
 class MiddleFragement : Fragment() {
 
@@ -48,7 +48,7 @@ class MiddleFragement : Fragment() {
 
 
     val RecoList = arrayListOf(
-            eachData(R.mipmap.ic_launcher, "안녕","반갑다")
+        eachData(R.mipmap.ic_launcher, "안녕","반갑다")
 
 
     )
@@ -87,31 +87,31 @@ class MiddleFragement : Fragment() {
                 Log.d(TAG, "get failed with ", exception)
             }*/
 
+        db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        Log.d("성공성공", document.id + " => " + document.data)
+                        var img = R.drawable.profile
+                        var answer = document.data.get("answer").toString()
+                        var question = document.data.get("contents").toString()
+                        Log.d(TAG, "확인 : ${document.data.get("index").toString().toInt()}");
+                        Log.d(TAG, "메모리 확인 : ${memory.size}");
+                        Log.d(TAG, "메모리 확인 : ${document.data.get("index").toString().toInt() == memory.size-1}");
+                        if(!data.contains(question)){
 
-            db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        for (document in task.result!!) {
-                            Log.d("성공성공", document.id + " => " + document.data)
-                            var img = R.drawable.profile
-                            var answer = document.data.get("answer").toString()
-                            var question = document.data.get("contents").toString()
-                            Log.d(TAG, "확인 : ${document.data.get("index").toString().toInt()}");
-                            Log.d(TAG, "메모리 확인 : ${memory.size}");
-                            Log.d(TAG, "메모리 확인 : ${document.data.get("index").toString().toInt() == memory.size-1}");
-                            if(!data.contains(question)){
-                                memory.add(eachData(img, question, answer))
-                                data.add(question)
-                            }
-
-
-
+                            memory.add(eachData(img, question, answer))
+                            data.add(question)
                         }
-                    } else {
-                        Log.w("실패실패", "Error getting documents.", task.exception)
+
+
+
                     }
+                } else {
+                    Log.w("실패실패", "Error getting documents.", task.exception)
                 }
+            }
 
 
 
@@ -123,8 +123,8 @@ class MiddleFragement : Fragment() {
                 recyclerView.layoutManager = LinearLayoutManager(context)
 
             }
-        ,
-        2000)
+            ,
+            2000)
 
 
 
