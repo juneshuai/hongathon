@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
     >
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/progress_Bar"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:max="20"
+                android:progress="0"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                />
+        </RelativeLayout>
 
-    <ProgressBar
-        android:id="@+id/progress_Bar"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:max="100"
-        android:progress="0"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <ImageView
         android:id="@+id/homeImg"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
         />
 
     <Button
         android:id="@+id/dialog_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="320dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_orange"
         android:fontFamily="@font/simple"
         android:text="다이얼로그 띄우기"
         android:textColor="@color/white"
         android:textSize="24sp" />
-</LinearLayout>
+</RelativeLayout>

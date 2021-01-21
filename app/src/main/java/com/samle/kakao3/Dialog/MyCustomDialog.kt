@@ -8,26 +8,23 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
+import com.example.bottomnavi.HomeFragement
 import com.example.bottomnavi.MiddleFragement
-import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.android.synthetic.main.custom_dialog.*
-import kotlin.concurrent.timer
-import kotlin.math.log
 
 
 class MyCustomDialog(context: Context)
     : Dialog(context)
 {
-
+    private lateinit var homeFragement: HomeFragement
     val TAG: String = "로그"
 
     var db = FirebaseFirestore.getInstance()
-    var question_list : MutableMap<Int, String> = mutableMapOf()
+
     var uniqueQuestion : String = ""
     companion object{
-
+        var currentExp : Int = 0
         var userContent = ArrayList<String>()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +42,6 @@ class MyCustomDialog(context: Context)
         //버튼 저장
         save_btn.setOnClickListener {
 
-
             val updateData= hashMapOf(
                 "answer" to edit_text.text.toString(),
                 "contents" to dialog_text.text.toString()
@@ -58,8 +54,6 @@ class MyCustomDialog(context: Context)
                         MiddleFragement.check = 0
                     }
                 }
-
-
 
 
             db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
@@ -85,8 +79,10 @@ class MyCustomDialog(context: Context)
                     }
                 }
 
+            homeFragement = HomeFragement.newInstance()
             Toast.makeText(context,"저장",Toast.LENGTH_SHORT).show()
 
+            currentExp =currentExp+5
             dismiss()
 
         }

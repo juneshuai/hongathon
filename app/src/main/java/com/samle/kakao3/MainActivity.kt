@@ -1,11 +1,11 @@
 package com.samle.kakao3
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.example.bottomnavi.HomeFragement
 import com.example.bottomnavi.MiddleFragement
 import com.example.bottomnavi.SettingFragement
@@ -57,6 +57,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 Log.d(TAG,"MainActivity - 홈버튼 클릭")
                 homeFragement = HomeFragement.newInstance()
                 setFrag(homeFragement)
+                Log.d("새로고침확인", "${supportFragmentManager.beginTransaction().detach(homeFragement).attach(homeFragement).commit()}");
+
+
+
             }
             R.id.menu_ranking -> {
                 Log.d(TAG,"MainActivity - 미들 클릭")
@@ -77,6 +81,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     fun setFrag(fragement: Fragment){
         supportFragmentManager.beginTransaction().replace(R.id.fragment_frame,fragement).commit()
     }
+
+
 
 
 }
