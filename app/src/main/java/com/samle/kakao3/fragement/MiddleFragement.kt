@@ -98,9 +98,9 @@ class MiddleFragement : Fragment() {
                         var question = document.data.get("contents").toString()
                         Log.d(TAG, "확인 : ${document.data.get("index").toString().toInt()}");
                         Log.d(TAG, "메모리 확인 : ${memory.size}");
-                        Log.d(TAG, "메모리 확인 : ${document.data.get("index").toString().toInt() == memory.size-1}");
+                        Log.d("dd","ddddd")
+                        Log.d(TAG, "메모리 안함 : ${document.data.get("index").toString().toInt() == memory.size-1}");
                         if(!data.contains(question)){
-
                             memory.add(eachData(img, question, answer))
                             data.add(question)
                         }

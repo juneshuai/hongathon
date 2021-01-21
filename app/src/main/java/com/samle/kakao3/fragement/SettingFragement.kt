@@ -60,6 +60,9 @@ class SettingFragement : Fragment() {
                 }
             }
         }
+        view.delete.setOnClickListener {
+            deleteUser()
+        }
         return view
     }
 
@@ -71,8 +74,11 @@ class SettingFragement : Fragment() {
             else {
                 db.collection("user").document(LoginActivity.currentUserEmail).delete()
                 db.collection("answer").document(LoginActivity.currentUserEmail).delete()
-                var intent=Intent(context,LoginActivity::class.java)
-                startActivity(intent)
+                    .addOnCompleteListener{
+                        var intent=Intent(context,LoginActivity::class.java)
+                        startActivity(intent)
+                    }
+
             }
         }
     }

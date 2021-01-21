@@ -47,20 +47,33 @@ class LoginActivity : AppCompatActivity() {
                                     currentUserEmail=user.kakaoAccount?.email.toString()
                                     val userData= hashMapOf(
                                             "email" to user.kakaoAccount?.email,
-                                            "name" to user.kakaoAccount?.profile?.nickname
+                                            "name" to user.kakaoAccount?.profile?.nickname,
+                                            "exp" to 0
                                     )
-                                    db.collection("user").document(user.kakaoAccount?.email.toString())
-                                            .set(userData)
-                                            .addOnSuccessListener {
-                                                currentUserEmail=user.kakaoAccount?.email.toString()
-                                                val intent = Intent(applicationContext, InfoActivity::class.java)
-                                                startActivity(intent)
+                                    db.collection("user").document(LoginActivity.currentUserEmail)
+                                        .get().addOnCompleteListener {
+                                            if(it.isSuccessful ){
+                                                var tmp = it.result?.get("email").toString()
+                                                if(tmp=="null"){
+                                                    db.collection("user").document(user.kakaoAccount?.email.toString())
+                                                        .set(userData)
+                                                        .addOnSuccessListener {
+                                                            Log.d("왜안난와",userData.toString())
+                                                            currentUserEmail=user.kakaoAccount?.email.toString()
+                                                            val intent = Intent(applicationContext, InfoActivity::class.java)
+                                                            startActivity(intent)
+                                                        }
+                                                        .addOnFailureListener { e -> Log.w("db값 안들어감", "Error writing document", e) }
+                                                }
                                             }
-                                            .addOnFailureListener { e -> Log.w("db값 안들어감", "Error writing document", e) }
+                                            val intent = Intent(applicationContext, InfoActivity::class.java)
+                                            startActivity(intent)
+                                        }
+
                                 }
                             }
-                            val intent = Intent(applicationContext, InfoActivity::class.java)
-                            startActivity(intent)
+//                            val intent = Intent(applicationContext, InfoActivity::class.java)
+//                            startActivity(intent)
                         }
 
                 }
@@ -84,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
                                 val userData= hashMapOf(
                                         "email" to user.kakaoAccount?.email,
                                         "name" to user.kakaoAccount?.profile?.nickname,
-                                        "state" to 0
+                                        "exp" to 0
                                 )
 
                                 db.collection("user").document(user.kakaoAccount?.email.toString())
