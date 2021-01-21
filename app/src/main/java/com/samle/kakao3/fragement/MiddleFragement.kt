@@ -19,6 +19,8 @@ import com.samle.kakao3.Adater.SwipeToDelete
 import com.samle.kakao3.LoginActivity
 import com.samle.kakao3.R
 import kotlinx.android.synthetic.main.custom_dialog.*
+import kotlinx.android.synthetic.main.fragement_middle.view.*
+
 //알겠습니다.
 
 class MiddleFragement : Fragment() {
@@ -27,6 +29,7 @@ class MiddleFragement : Fragment() {
     var memory = mutableListOf<eachData>()
 
     var db = FirebaseFirestore.getInstance()
+    lateinit var viewTmp:View
     companion object{
         const val TAG : String = "로그"
         var check : Int = 0
@@ -62,6 +65,7 @@ class MiddleFragement : Fragment() {
 
         Log.d(TAG,"ProfileFragement - onCreateView() called")
         val view = inflater.inflate(R.layout.fragement_middle, container, false)
+        viewTmp=view
         recyclerView = view.findViewById(R.id.recylerView)
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
@@ -73,7 +77,7 @@ class MiddleFragement : Fragment() {
 
 
 
-
+        adapter.modelList.clear()
         db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
             .get()
             .addOnCompleteListener { task ->
@@ -83,46 +87,61 @@ class MiddleFragement : Fragment() {
                         var img = R.drawable.profile
                         var answer = document.data.get("answer").toString()
                         var question = document.data.get("contents").toString()
-                        Log.d(TAG, "확인 : ${document.data.get("index").toString().toInt()}");
-                        Log.d(TAG, "메모리 확인 : ${memory.size}");
-                        Log.d("dd","ddddd")
-                        Log.d(TAG, "메모리 안함 : ${document.data.get("index").toString().toInt() == memory.size-1}");
-                        if(!data.contains(question)){
+                      if(!data.contains(question)){
                             memory.add(eachData(img, question, answer))
                             data.add(question)
                         }
 
-
+                        adapter.modelList.add(eachData(img, question, answer))
 
                     }
                 } else {
                     Log.w("실패실패", "Error getting documents.", task.exception)
                 }
-            }
-
-
-
-
-        Handler().postDelayed(
-            {
-                adapter.modelList.addAll(memory)
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 swipToDelete()
-
-
             }
-            ,
-            2000)
 
 
-
-
+        restart()
         return view
     }
     private fun swipToDelete(){
         var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun restart(){
+        viewTmp.swipeToRefresh.setOnRefreshListener {
+            adapter.modelList.clear()
+            db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result!!) {
+                            Log.d("성공성공", document.id + " => " + document.data)
+                            var img = R.drawable.profile
+                            var answer = document.data.get("answer").toString()
+                            var question = document.data.get("contents").toString()
+                            if(!data.contains(question)){
+                                memory.add(eachData(img, question, answer))
+                                data.add(question)
+                            }
+
+                            adapter.modelList.add(eachData(img, question, answer))
+                            viewTmp.swipeToRefresh.isRefreshing=false
+                        }
+                    } else {
+                        Log.w("실패실패", "Error getting documents.", task.exception)
+                    }
+                    recyclerView.adapter = adapter
+                    recyclerView.layoutManager = LinearLayoutManager(context)
+                    swipToDelete()
+                }
+
+
+        }
     }
 
 }

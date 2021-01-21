@@ -66,6 +66,8 @@ dependencies {
     // 인디케이터 애니메이션
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation platform('com.google.firebase:firebase-bom:26.3.0')
