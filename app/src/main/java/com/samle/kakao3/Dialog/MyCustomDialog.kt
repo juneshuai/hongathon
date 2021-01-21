@@ -75,8 +75,18 @@ class MyCustomDialog(context: Context)
                     }
                 }
 
+            db.collection("user").document(LoginActivity.currentUserEmail)
+                .get().addOnCompleteListener {
+                    if(it.isSuccessful){
+                        var exp= it.result?.get("exp").toString()
+                        var tmp=exp.toInt()+5
+                        db.collection("user").document(LoginActivity.currentUserEmail)
+                            .update("exp",tmp)
+                    }
+                }
 
             Toast.makeText(context,"저장",Toast.LENGTH_SHORT).show()
+
             dismiss()
 
         }
