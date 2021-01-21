@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.btnnavirecycler.Adater.RecyclerAdapter
 import com.example.btnnavirecycler.Adater.eachData
 import com.google.api.LogDescriptor
 import com.google.firebase.firestore.FirebaseFirestore
+import com.samle.kakao3.Adater.SwipeToDelete
 import com.samle.kakao3.LoginActivity
 import com.samle.kakao3.R
 import kotlinx.android.synthetic.main.custom_dialog.*
@@ -70,22 +72,7 @@ class MiddleFragement : Fragment() {
         }
 
 
-        //파이어베이스 추가
-        /*db.collection("answer").document(LoginActivity.currentUserEmail).get().addOnSuccessListener {
-            if (it != null) {
-                Log.d(TAG, "DocumentSnapshot data: ${it.data!!.toMutableMap()}")
-                Log.d(TAG, "tqtqtqtq${it.data!!.toMutableMap().get("가장 좋아하는 액세서리는?") is MutableList<String, String>}");
 
-
-
-
-            } else {
-                Log.d(TAG, "No such document")
-            }
-        }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
-            }*/
 
         db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
             .get()
@@ -121,17 +108,21 @@ class MiddleFragement : Fragment() {
                 adapter.modelList.addAll(memory)
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(context)
+                swipToDelete()
+
 
             }
             ,
             2000)
 
 
-        recyclerView.setOnClickListener{
 
-        }
 
         return view
+    }
+    private fun swipToDelete(){
+        var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
 }

@@ -38,6 +38,11 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
 
     }
 
+    fun deleteItem(pos:Int){
+        modelList.removeAt(pos)
+        notifyItemRemoved(pos)
+    }
+
 }
 
 
