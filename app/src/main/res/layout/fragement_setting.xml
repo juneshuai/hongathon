@@ -13,7 +13,7 @@
         android:id="@+id/userImage"
         android:layout_width="171dp"
         android:layout_height="144dp"
-        android:background="@drawable/image_background"
+        android:background="@drawable/rounded_orange"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
