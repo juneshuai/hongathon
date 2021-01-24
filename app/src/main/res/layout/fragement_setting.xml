@@ -34,7 +34,8 @@
         android:fontFamily="@font/simple"
         android:text="로그아웃"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"/>
 
     <Button
         android:id="@+id/delete"
@@ -44,7 +45,8 @@
         android:fontFamily="@font/simple"
         android:text="탈퇴"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:layout_marginTop="30dp"/>
 
 
 </LinearLayout>
