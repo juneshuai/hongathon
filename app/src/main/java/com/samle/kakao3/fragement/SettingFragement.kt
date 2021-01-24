@@ -2,6 +2,7 @@ package com.example.bottomnavi
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +14,11 @@ import com.kakao.sdk.user.UserApiClient
 import com.samle.kakao3.KaKaoApplication
 import com.samle.kakao3.LoginActivity
 import com.samle.kakao3.R
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragement_setting.*
 import kotlinx.android.synthetic.main.fragement_setting.view.*
+import kotlinx.android.synthetic.main.fragement_setting.view.userName
+import java.net.URI
 
 class SettingFragement : Fragment() {
     var db = FirebaseFirestore.getInstance()
@@ -45,6 +50,7 @@ class SettingFragement : Fragment() {
         Log.d(TAG,"RankingFragement - onCreateView() called")
 
         val view = inflater.inflate(R.layout.fragement_setting, container, false)
+        setUserData()
         view.logout.setOnClickListener {
             UserApiClient.instance.logout {error ->
                 if(error != null){
@@ -81,6 +87,17 @@ class SettingFragement : Fragment() {
 
             }
         }
+    }
+
+    fun setUserData() {
+        db.collection("user").document(LoginActivity.currentUserEmail)
+            .get().addOnCompleteListener {
+                if (it.isSuccessful){
+                    userName.text= it.result?.get("name")?.toString()
+                    val userProfile= Uri.parse(it.result?.get("profile")?.toString())
+                    Picasso.get().load(userProfile).into(userImage)
+                }
+            }
     }
 
 }
