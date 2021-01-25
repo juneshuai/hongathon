@@ -25,7 +25,8 @@ class HomeFragement : Fragment() {
 
     var db = FirebaseFirestore.getInstance()
     companion object{
-        const val TAG : String = "로그"
+        var ListOf = listOf<Int>(R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d)
+        const val TAG : String = "생명주기"
         var previousExp : Int = 0
         var exp : Int = 0
         //자기 자신을 가져온다.
@@ -36,15 +37,19 @@ class HomeFragement : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG,"HomeFragement - onCreate() called")
+        Log.d("생명주기","HomeFragement - onCreate() called")
 
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.d(TAG,"HomeFragement - onAttach() called")
+        Log.d("생명주기","HomeFragement - onAttach() called")
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d("생명주기", "HomeFragement : onActivityCreated() called");
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,16 +57,18 @@ class HomeFragement : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        Log.d(TAG,"HomeFragement - onCreateView() called")
+        Log.d("생명주기","HomeFragement - onCreateView() called")
 
         val view = inflater.inflate(R.layout.fragement_home, container, false)
         view.dialog_button.setOnClickListener {
             MyCustomDialog(view.context).show()
 
+            Log.d("생명주기","커스텀 다이어로그")
+
             db.collection("answer")
                 .get()
                 .addOnCompleteListener{
-                    if(it.isSuccessful )
+                    if(it.isSuccessful)
                     if(it.result != null){
                         db.collection("answer").document(LoginActivity.currentUserEmail)
                             .get()
@@ -77,12 +84,11 @@ class HomeFragement : Fragment() {
 
 
 
-
-
                 }
         db.collection("user").document(LoginActivity.currentUserEmail).get().addOnSuccessListener {
             Log.d("값확인", "${it.data!!.get("exp").toString().toInt()}");
             exp = it.data!!.get("exp").toString().toInt()
+            Log.d("생명주기", "exp${exp}");
 
 
         }
@@ -90,7 +96,41 @@ class HomeFragement : Fragment() {
         //view.progress_Bar.setProgress(MyCustomDialog.currentExp)
         if(exp == 20){
             view.progress_Bar.setProgress(0)
-            view.homeImg.setImageResource(R.drawable.c)
+            Glide.with(this).load(R.drawable.b).into(view.homeImg)
+            MyCustomDialog.currentExp = 0
+        }else if(exp == 40){
+            view.progress_Bar.setProgress(0)
+            Glide.with(this).load(R.drawable.c).into(view.homeImg)
+            MyCustomDialog.currentExp = 0
+        }else if(exp == 60){
+            view.progress_Bar.setProgress(0)
+            Glide.with(this).load(R.drawable.d).into(view.homeImg)
+            MyCustomDialog.currentExp = 0
+        } else{
+            Glide.with(this).load(R.drawable.a).into(view.homeImg)
+        }
+
+
+
+
+
+        return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("생명주기", "HomeFragement : onResume() called");
+        db.collection("user").document(LoginActivity.currentUserEmail).get().addOnSuccessListener {
+            Log.d("값확인", "${it.data!!.get("exp").toString().toInt()}");
+            exp = it.data!!.get("exp").toString().toInt()
+
+
+        }
+        Handler().post(Runnable { progress_Bar.setProgress(MyCustomDialog.currentExp) })
+        //view.progress_Bar.setProgress(MyCustomDialog.currentExp)
+        if(exp == 20){
+            progress_Bar.setProgress(0)
+            homeImg.setImageResource(R.drawable.c)
             MyCustomDialog.currentExp = 0
         }
 
@@ -100,14 +140,21 @@ class HomeFragement : Fragment() {
             swipeToRefresh.isRefreshing = false
         }*/
 
-        Glide.with(this).load(R.drawable.a).into(view.homeImg)
-
-        return view
+        //Glide.with(this).load(R.drawable.a).into(view!!.home_Img)
     }
 
+    override fun onPause() {
+        super.onPause()
+        Log.d("생명주기", "HomeFragement : onPause() called");
+    }
 
+    override fun onStop() {
+        super.onStop()
+        Log.d("생명주기", "HomeFragement : onStop() called");
+    }
 
-
-
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("생명주기", "HomeFragement : onDestroyView() called");
+    }
 }

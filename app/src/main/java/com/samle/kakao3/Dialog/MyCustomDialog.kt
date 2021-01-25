@@ -8,10 +8,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import com.example.bottomnavi.HomeFragement
 import com.example.bottomnavi.MiddleFragement
+import com.google.api.LogDescriptor
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.custom_dialog.*
+import kotlinx.android.synthetic.main.fragement_home.*
 
 
 class MyCustomDialog(context: Context)
@@ -79,16 +84,21 @@ class MyCustomDialog(context: Context)
                     }
                 }
 
-            homeFragement = HomeFragement.newInstance()
-            Toast.makeText(context,"저장",Toast.LENGTH_SHORT).show()
+            currentExp = currentExp + 5
+            Log.d("저장위치", "MyCustomDialog : onCreate() called");
 
-            currentExp =currentExp+5
+
             dismiss()
+
 
         }
         cancel_btn.setOnClickListener {
             Toast.makeText(context,"취소",Toast.LENGTH_SHORT).show()
             dismiss()
+        }
+        setOnDismissListener {
+
+
         }
         setCancelable(false);
 
@@ -129,6 +139,7 @@ class MyCustomDialog(context: Context)
                 }
             }
     }
+
 
 }
 
