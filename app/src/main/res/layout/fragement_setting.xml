@@ -22,7 +22,8 @@
         android:layout_height="65dp"
         android:fontFamily="@font/simple"
         android:gravity="center|center_vertical"
-        android:text="TextView"
+        android:text=""
+        android:visibility="visible"
         android:textColor="@color/colorOrange"
         android:textSize="24sp" />
 

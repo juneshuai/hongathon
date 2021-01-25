@@ -1,5 +1,6 @@
 package com.example.btnnavirecycler.Adater
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,9 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
 
 
     var modelList = mutableListOf<eachData>()
+    companion object{
+        var cnt : Int = 0
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

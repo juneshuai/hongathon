@@ -34,6 +34,7 @@ class MiddleFragement : Fragment() {
         const val TAG : String = "로그"
         var check : Int = 0
         val adapter = RecyclerAdapter()
+        var currentExp : Int = 0
         fun newInstance() : MiddleFragement{
             return MiddleFragement()
         }
@@ -100,6 +101,7 @@ class MiddleFragement : Fragment() {
                 }
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(context)
+
                 swipToDelete()
             }
 
@@ -107,9 +109,10 @@ class MiddleFragement : Fragment() {
         restart()
         return view
     }
-    private fun swipToDelete(){
+    private fun swipToDelete() {
         var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
         itemTouchHelper.attachToRecyclerView(recyclerView)
+
     }
 
     private fun restart(){

@@ -9,12 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kakao.sdk.user.UserApiClient
 import com.samle.kakao3.KaKaoApplication
 import com.samle.kakao3.LoginActivity
 import com.samle.kakao3.R
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragement_setting.*
 import kotlinx.android.synthetic.main.fragement_setting.view.*
 import kotlinx.android.synthetic.main.fragement_setting.view.userName
@@ -93,9 +93,11 @@ class SettingFragement : Fragment() {
         db.collection("user").document(LoginActivity.currentUserEmail)
             .get().addOnCompleteListener {
                 if (it.isSuccessful){
+
                     userName.text= it.result?.get("name")?.toString()
+                    userName.visibility = View.VISIBLE
                     val userProfile= Uri.parse(it.result?.get("profile")?.toString())
-                    Picasso.get().load(userProfile).into(userImage)
+                    Glide.with(this).load(userProfile).into(userImage)
                 }
             }
     }
