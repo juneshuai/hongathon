@@ -50,6 +50,7 @@ class MyCustomDialog(context: Context)
             val updateData= hashMapOf(
                 "answer" to edit_text.text.toString(),
                 "contents" to dialog_text.text.toString()
+
             )
             db.collection("answer").document(LoginActivity.currentUserEmail).collection("userData")
                 .get().addOnCompleteListener {
@@ -89,6 +90,7 @@ class MyCustomDialog(context: Context)
 
 
             dismiss()
+            Toast.makeText(context,"저장 완료",Toast.LENGTH_SHORT).show()
 
 
         }

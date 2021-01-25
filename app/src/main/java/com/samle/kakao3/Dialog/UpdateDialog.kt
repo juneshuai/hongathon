@@ -57,10 +57,10 @@ class UpdateDialog(context: Context,question:String,answer: String)
            db.collection("answer").document(LoginActivity.currentUserEmail)
                .collection("userData").document(dialog_text.text.toString())
                .update("answer",edit_text.text.toString()).addOnCompleteListener {
-                   Toast.makeText(context,"우와성공쓰",Toast.LENGTH_SHORT).show()
+                   Toast.makeText(context,"수정 완료",Toast.LENGTH_SHORT).show()
                }
 
-            Toast.makeText(context,"수정완료",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"수정 완료",Toast.LENGTH_SHORT).show()
 
             dismiss()
 

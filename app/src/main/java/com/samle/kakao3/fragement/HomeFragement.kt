@@ -102,7 +102,9 @@ class HomeFragement : Fragment() {
 
         view.progress_Bar.setProgress(exp%20)
         if(exp%20 == 0){
-            Glide.with(this).load(ListOf.get(1)).into(view.homeImg)
+            val random = Random(System.currentTimeMillis())
+            val num = random.nextInt(3)+1
+            Glide.with(this).load(ListOf.get(num)).into(view.homeImg)
         }else{
             val random = Random(System.currentTimeMillis())
             val num = random.nextInt(3)+1

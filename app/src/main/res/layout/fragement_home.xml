@@ -27,13 +27,13 @@
 
     <Button
         android:id="@+id/dialog_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_orange"
         android:fontFamily="@font/simple"
-        android:text="다이얼로그 띄우기"
+        android:text="질문 보기"
         android:textColor="@color/white"
         android:textSize="24sp" />
 </LinearLayout>
