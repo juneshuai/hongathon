@@ -6,9 +6,10 @@
 
 ######  			개발환경 : Android Studio(Kotlin), Firebase Cloud
 
-0. Introduce
-   <img width="460" height="500" src="https://user-images.githubusercontent.com/67306008/105942515-b5714580-60a2-11eb-9957-d7dc682407d6.jpg">
-   
+0. Introduce <br>
+   <img width="460" height="500" src="https://user-images.githubusercontent.com/67306008/105942515-b5714580-60a2-11eb-9957-d7dc682407d6.jpg">  
+  매일 자신에게 질문에 대한 답을 적어서 자신을 되돌아보는 질문 다이어리앱을 만들어봤습니다.<br>자신을 성찰하거나 생각을 적고 싶은 사람에게 필요한 앱이다.  
+  위에 다이어리를 보고 생각나서 만들어봤습니다.<br>
    
 1. StartActivity & Home Fragment
    - [x] Kakao  로그인 구현
@@ -24,6 +25,9 @@
 
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/39898938/105698581-66fc6380-5f49-11eb-8814-d325adb24492.gif)   &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  ![hong_delete_logout](https://user-images.githubusercontent.com/39898938/105698218-eccbdf00-5f48-11eb-9c8e-16d115906f1e.gif)   
 
+3. Future plans
+   - [x] 수정하자마자 바로 값이 변경
+   - [x] 경험치를 바탕으로 캐릭터 진화 구현
  
 
 
