@@ -6,8 +6,10 @@
 
 ######  			개발환경 : Android Studio(Kotlin), Firebase Cloud
 
-
-
+0. Introduce
+   <img width="460" height="500" src="https://user-images.githubusercontent.com/67306008/105942515-b5714580-60a2-11eb-9957-d7dc682407d6.jpg">
+   
+   
 1. StartActivity & Home Fragment
    - [x] Kakao  로그인 구현
    - [x] 질문에 대한 사용자 답변 Firebase cloud  저장
